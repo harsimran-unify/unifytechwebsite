@@ -173,6 +173,22 @@ export default function Footer() {
         </motion.div>
       </div>
 
+      {/* Big brand text before bottom bar */}
+      <div className="border-t border-zinc-900 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 0.15, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8 }}
+            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-center text-white tracking-tight"
+            style={{ opacity: 0.15 }}
+          >
+            UNIFY TECH
+          </motion.h2>
+        </div>
+      </div>
+
       {/* Bottom bar */}
       <div className="border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
