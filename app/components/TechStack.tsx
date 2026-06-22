@@ -3,10 +3,13 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { staggerContainer, fadeUpVariant, gridStagger, gridItemVariant } from "../animations";
 
 interface TechCategory {
   title: string;
   technologies: string[];
+  accent: string;
+  gradient: string;
 }
 
 const techStack: TechCategory[] = [
@@ -19,6 +22,8 @@ const techStack: TechCategory[] = [
       "Flutter",
       "React Native",
     ],
+    accent: "text-purple-400",
+    gradient: "border-purple-500/30",
   },
   {
     title: "Frontend",
@@ -30,6 +35,8 @@ const techStack: TechCategory[] = [
       "TypeScript",
       "Tailwind CSS",
     ],
+    accent: "text-blue-400",
+    gradient: "border-blue-500/30",
   },
   {
     title: "Backend",
@@ -41,6 +48,8 @@ const techStack: TechCategory[] = [
       ".NET",
       "Go",
     ],
+    accent: "text-green-400",
+    gradient: "border-green-500/30",
   },
   {
     title: "Database & Cloud",
@@ -52,12 +61,14 @@ const techStack: TechCategory[] = [
       "Azure",
       "Firebase",
     ],
+    accent: "text-pink-400",
+    gradient: "border-pink-500/30",
   },
 ];
 
 export default function TechStack() {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
 
   return (
     <section
@@ -72,7 +83,7 @@ export default function TechStack() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Our <span className="gradient-text">Tech Stack</span>
+            Our <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">Tech Stack</span>
           </h2>
           <p className="text-zinc-400 max-w-2xl mx-auto">
             We leverage the latest technologies to build scalable, secure, and
@@ -82,29 +93,19 @@ export default function TechStack() {
 
         {/* Tech grid */}
         <motion.div
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.1,
-              },
-            },
-          }}
+          variants={gridStagger}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {techStack.map((category, categoryIndex) => (
+          {techStack.map((category) => (
             <motion.div
               key={category.title}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800"
+              variants={gridItemVariant}
+              whileHover={{ y: -5 }}
+              className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition-all group"
             >
-              <h3 className="text-lg font-semibold text-white mb-4 pb-3 border-b border-zinc-800">
+              <h3 className={`text-lg font-semibold text-white mb-4 pb-3 border-b border-zinc-800 ${category.accent}`}>
                 {category.title}
               </h3>
               <ul className="space-y-2">
@@ -113,7 +114,7 @@ export default function TechStack() {
                     key={tech}
                     className="text-zinc-400 hover:text-zinc-300 transition-colors flex items-center gap-2"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-700" />
+                    <span className={`w-1.5 h-1.5 rounded-full bg-${category.accent.split('-')[1]}-500`} />
                     {tech}
                   </li>
                 ))}
