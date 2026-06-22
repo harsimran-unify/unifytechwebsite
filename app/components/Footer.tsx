@@ -173,16 +173,17 @@ export default function Footer() {
         </motion.div>
       </div>
 
-      {/* Big brand text before bottom bar */}
-      <div className="border-t border-zinc-900 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Big brand text - blends with footer */}
+      <div className="border-t border-zinc-900 overflow-hidden relative">
+        {/* Gradient overlay for blending */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 0.15, y: 0 }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.8 }}
-            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-center text-white tracking-tight"
-            style={{ opacity: 0.15 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 0.08, scale: 1 }}
+            viewport={{ once: false, margin: "-50px" }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-zinc-700 to-zinc-900 tracking-tight select-none"
           >
             UNIFY TECH
           </motion.h2>
